@@ -1,33 +1,38 @@
-<html>
-<head>
-<title>Hello DevOps Class</title>
-</head>
-<body>
 <?php
-// Connect to the database
 $host = 'ilan-database1.cx248m4we6k7.us-east-1.rds.amazonaws.com';
 $user = 'admin';
-$password = 'B.>4YvLP6ObWBU*uYw>00eh6xp~A';
+$password = '***';
 $dbname = 'new_schema';
+
 $conn = mysqli_connect($host, $user, $password, $dbname);
-// Check connection
+
 if (!$conn) {
-die("Connection failed: " . mysqli_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
-// Select all rows from the breached table
+
+mysqli_set_charset($conn, "utf8mb4");
+
 $sql = "SELECT id, email, pass, date_add FROM breached";
 $result = mysqli_query($conn, $sql);
-echo "<h1>Breached</h1>";
-echo "<table>";
-echo "<tr><th>ID</th><th>Email</th><th>Password</th><th>Date
-Added</th></tr>";
-// Output the data from each row
-while ($row = mysqli_fetch_array($result)) {
-echo "<tr><td>" . $row['id'] . "</td><td>" . $row['email'] . "</td><td>" .
-$row['pass'] . "</td><td>" . $row['date_add'] . "</td></tr>";
+
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
 }
+
+echo "<h1>Breached</h1>";
+echo "<table border='1'>";
+echo "<tr><th>ID</th><th>Email</th><th>Password</th><th>Date Added</th></tr>";
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo "<tr>
+        <td>{$row['id']}</td>
+        <td>" . htmlspecialchars($row['email']) . "</td>
+        <td>" . htmlspecialchars($row['pass']) . "</td>
+        <td>{$row['date_add']}</td>
+    </tr>";
+}
+
 echo "</table>";
+
 mysqli_close($conn);
 ?>
-</body>
-</html>
