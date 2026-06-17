@@ -5,10 +5,10 @@
 <body>
 <?php
 // Connect to the database
-$host = 'your-rds-endpoint';
-$user = 'your-username';
-$password = 'your-password';
-$dbname = 'your-database-name';
+$host = 'ilan-database1.cx248m4we6k7.us-east-1.rds.amazonaws.com';
+$user = 'admin';
+$password = 'B.>4YvLP6ObWBU*uYw>00eh6xp~A';
+$dbname = 'new_schema';
 $conn = mysqli_connect($host, $user, $password, $dbname);
 // Check connection
 if (!$conn) {
